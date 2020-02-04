@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+
 public class Piece {  //Abstract class Piece.
 
     String PieceName;  //String for the name of the piece.
@@ -72,5 +74,18 @@ public class Piece {  //Abstract class Piece.
         //Create the code:
         String code = name.concat(color);
         return code;
+     }
+
+     public void moveTo(String position) throws Exceptions {  //Move a Piece to other place.
+
+        if(Chess.ChessboardPlacesUsed.contains(position)){
+            throw new Exceptions("Place already in use.");
+        }else{
+            Chess.ChessboardPlacesUsed.remove(PiecePlace);
+            Chess.ChessboardPlacesUsed.add(position);
+            PiecePlace = position;
+        }
+
+
      }
 }

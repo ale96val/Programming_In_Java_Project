@@ -2,7 +2,10 @@ import java.util.LinkedList;
 
 public class Chess {  //Class for the chess.
 
-    public static void main(String[] args) {  //Main class.
+    //List with all the positions of the chessboard used.
+    public static LinkedList ChessboardPlacesUsed = new LinkedList();
+
+    public static void main(String[] args) throws Exceptions {  //Main class.
 
         Piece[][] chessboard = new Piece[6][2];  //Two-dimensional array for represent the chessboard.
 
@@ -103,10 +106,26 @@ public class Chess {  //Class for the chess.
         System.out.println("CURRENT STATE OF THE CHESSBOARD: ");
         System.out.println(getState());
 
-    }  //End of the main class.
+        //Move some Pieces:
+        System.out.println("MOVE SOME PIECES WITH CORRECT MOVEMENTS: ");
+        System.out.println("Star position: ");
+        System.out.println(KnightBlack1.getName() +", "+ KnightBlack1.getPiecePlace());
+        KnightBlack1.moveTo("A2");
+        System.out.println("New position: ");
+        System.out.println(KnightBlack1.getName() +", "+ KnightBlack1.getPiecePlace());
 
-    //List with all the positions of the chessboard used.
-    static LinkedList ChessboardPlacesUsed = new LinkedList();
+        System.out.println("MOVE SOME PIECES WITH INCORRECT MOVEMENTS: ");
+        System.out.println("Star position: ");
+        System.out.println(KnightBlack1.getName() +", "+ KnightBlack1.getPiecePlace());
+        try {
+            KnightBlack1.moveTo(QueenBlack1.getPiecePlace());
+        }catch (Exceptions ex) {
+            System.out.println(ex.getMessage());
+        }
+        System.out.println("New position: ");
+        System.out.println(KnightBlack1.getName() +", "+ KnightBlack1.getPiecePlace());
+
+    }  //End of the main class.
 
     private static String getPlace(LinkedList avaliables) {  //Method to create a random place according to the chess rules.
 
@@ -123,6 +142,7 @@ public class Chess {  //Class for the chess.
 
     private static String getState(){  //Method to show the actual state of the chessboard.
         String text ="A";
+        
     return text;
     }
 }
