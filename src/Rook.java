@@ -4,7 +4,4 @@ public class Rook extends Piece {  //Class for Rook Piece.
         super(pieceName, pieceColor, Place);
     }
 
-    public String getName() {  //getName return a two-letter description of the piece.
-        return null;
-    }
 }

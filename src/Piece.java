@@ -2,13 +2,13 @@ public class Piece {  //Abstract class Piece.
 
     String PieceName;  //String for the name of the piece.
     Color PieceColor;  //Enum type for the color of the piece.
-    String Place; //String for the place of the Piece in the chessboard.
+    String PiecePlace; //String for the place of the Piece in the chessboard.
 
     public Piece(String pieceName, Color pieceColor, String Place) {  //General constructor for Piece.
 
         PieceName = pieceName;
         PieceColor = pieceColor;
-        Place = Place;
+        PiecePlace = Place;
     }
 
     //Getters and Setter of Piece.
@@ -29,11 +29,11 @@ public class Piece {  //Abstract class Piece.
     }
 
     public String getPiecePlace() {
-        return Place;
+        return PiecePlace;
     }
 
     public void setPiecePlace(String Place) {
-        Place = Place;
+        PiecePlace = Place;
     }
 
     //ToString for Piece.
@@ -41,7 +41,36 @@ public class Piece {  //Abstract class Piece.
         return "Piece{" +
                 "PieceName='" + PieceName + '\'' +
                 ", PieceColor=" + PieceColor + '\'' +
-                ", Place=" + Place +
+                ", Place=" + PiecePlace +
                 '}';
     }
+
+     public String getName(){  //Produces the two letters code.
+
+        String pname = getPieceName();
+        Color PieceColor = getPieceColor();
+        String color = "A";
+        String name = "A";
+
+        switch (PieceColor) {  //Choose the letter of the color.
+            case Black:
+                color = "B";
+                break;
+            case White:
+                color = "W";
+                break;
+        }
+
+        if(pname.contains("ight")){  //Chose the letter of the piece.
+            name = "K";
+        }else if(pname.contains("ook")){
+            name = "R";
+        }else if(pname.contains("een")){
+            name = "Q";
+        }
+
+        //Create the code:
+        String code = name.concat(color);
+        return code;
+     }
 }

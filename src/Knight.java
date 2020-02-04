@@ -4,7 +4,4 @@ public class Knight extends Piece {  //Class for Knight Piece.
         super(pieceName, pieceColor, Place);
     }
 
-    public String getName() {  //getName return a two-letter description of the piece.
-        return null;
-    }
 }
