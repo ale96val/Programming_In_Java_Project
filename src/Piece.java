@@ -76,6 +76,7 @@ public class Piece {  //Abstract class Piece.
         return code;
      }
 
+     //Moving pieces to places where other pieces of the same or different colors are not allowed for this example.
      public void moveTo(String position) throws Exceptions {  //Move a Piece to other place.
 
         if(Chess.ChessboardPlacesUsed.contains(position)){
