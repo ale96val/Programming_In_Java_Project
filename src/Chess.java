@@ -7,7 +7,7 @@ public class Chess {  //Class for the chess.
 
     public static void main(String[] args) throws Exceptions {  //Main class.
 
-        Piece[][] chessboard = new Piece[6][2];  //Two-dimensional array for represent the chessboard.
+        Piece[] chessboard = new Piece[6]; //Two-dimensional array for represent the chessboard.
 
         LinkedList ChessboardPlaces = new LinkedList();  //List with all the positions of the chessboard.
 
@@ -77,12 +77,19 @@ public class Chess {  //Class for the chess.
         ChessboardPlaces.add("H8");
 
         //Creating five pieces and placing it randomly according to the chess rules.
+        //Adding the element to chessboard array to control it status at each time.
         Knight KnightBlack1 = new Knight("KnightBlack1", Color.Black, getPlace(ChessboardPlaces));
+        chessboard[0] = KnightBlack1;
         Knight KnightBlack2 = new Knight("KnightBlack2", Color.Black, getPlace(ChessboardPlaces));
+        chessboard[1] = KnightBlack2;
         Rook RookWhite1 = new Rook("RookWhite1", Color.White, getPlace(ChessboardPlaces));
+        chessboard[2] = RookWhite1;
         Rook RookWhite2 = new Rook("RookWhite2", Color.White, getPlace(ChessboardPlaces));
+        chessboard[3] = RookWhite2;
         Queen QueenBlack1 = new Queen("QueenBlack1", Color.Black, getPlace(ChessboardPlaces));
+        chessboard[4] = QueenBlack1;
         Queen QueenWhite1 = new Queen("QueenWhite1", Color.White, getPlace(ChessboardPlaces));
+        chessboard[5] = QueenWhite1;
 
         //Print information about the Pieces created.
         System.out.println("INFORMATION ABOUT THE PIECES CREATED: ");
@@ -92,6 +99,7 @@ public class Chess {  //Class for the chess.
         System.out.println(RookWhite2.toString());
         System.out.println(QueenBlack1.toString());
         System.out.println(QueenWhite1.toString());
+        System.out.println();
 
         //Print information about the code of the Pieces created.
         System.out.println("INFORMATION ABOUT THE CODE OF THE PIECES CREATED: ");
@@ -101,10 +109,12 @@ public class Chess {  //Class for the chess.
         System.out.println(RookWhite2.getName());
         System.out.println(QueenBlack1.getName());
         System.out.println(QueenWhite1.getName());
+        System.out.println();
 
         //Print the current state of the chessboard.
         System.out.println("CURRENT STATE OF THE CHESSBOARD: ");
-        System.out.println(getState());
+        getState(chessboard);
+        System.out.println();
 
         //Move some Pieces:
         System.out.println("MOVE SOME PIECES WITH CORRECT MOVEMENTS: ");
@@ -113,6 +123,7 @@ public class Chess {  //Class for the chess.
         KnightBlack1.moveTo("A2");
         System.out.println("New position: ");
         System.out.println(KnightBlack1.getName() +", "+ KnightBlack1.getPiecePlace());
+        System.out.println();
 
         System.out.println("MOVE SOME PIECES WITH INCORRECT MOVEMENTS: ");
         System.out.println("Star position: ");
@@ -124,25 +135,27 @@ public class Chess {  //Class for the chess.
         }
         System.out.println("New position: ");
         System.out.println(KnightBlack1.getName() +", "+ KnightBlack1.getPiecePlace());
+        System.out.println();
 
     }  //End of the main class.
 
     private static String getPlace(LinkedList avaliables) {  //Method to create a random place according to the chess rules.
+            Integer i = (int) (Math.random() * 63);  //Random number to choose a place.
+            String chosen = avaliables.get(i).toString();  //Choose the place from the list.
 
-        Integer i = (int) (Math.random() * 64);  //Random number to choose a place.
-        String chosen = avaliables.get(i).toString();  //Choose the place from the list.
+            while (ChessboardPlacesUsed.contains(chosen)) {  //Check that the place has not been used before or choose other.
+                i = (int) (Math.random() * 64);
+                chosen = avaliables.get(i).toString();
+            }
+            ChessboardPlacesUsed.add(chosen);  //Add the place to the list of places used.
 
-        while(ChessboardPlacesUsed.contains(chosen)){  //Check that the place has not been used before or choose other.
-            i = (int) (Math.random() * 64);
-            chosen = avaliables.get(i).toString();
-        }
-        ChessboardPlacesUsed.add(chosen);  //Add the place to the list of places used.
         return chosen;  //Return the place.
     }
 
-    private static String getState(){  //Method to show the actual state of the chessboard.
-        String text ="A";
-        
-    return text;
+    private static void getState(Piece[] actualstatus){  //Method to show the actual state of the chessboard.
+        System.out.println("The pieces are situated in the next places in this moment: ");
+        for (Piece p: actualstatus) {
+            System.out.println(p.getName() + ", " + p.getPiecePlace());
+        }
     }
 }
