@@ -2,24 +2,24 @@ import java.util.LinkedList;
 
 public class Piece {  //Abstract class Piece.
 
-    String PieceName;  //String for the name of the piece.
+    PieceName pName;  //String for the name of the piece.
     Color PieceColor;  //Enum type for the color of the piece.
     String PiecePlace; //String for the place of the Piece in the chessboard.
 
-    public Piece(String pieceName, Color pieceColor, String Place) {  //General constructor for Piece.
+    public Piece(PieceName pieceName, Color pieceColor, String Place) {  //General constructor for Piece.
 
-        PieceName = pieceName;
+        pName = pieceName;
         PieceColor = pieceColor;
         PiecePlace = Place;
     }
 
     //Getters and Setter of Piece.
     public String getPieceName() {
-        return PieceName;
+        return pName.toString();
     }
 
-    public void setPieceName(String pieceName) {
-        PieceName = pieceName;
+    public void setPieceName(PieceName pieceName) {
+        pName = pieceName;
     }
 
     public Color getPieceColor() {
@@ -41,7 +41,7 @@ public class Piece {  //Abstract class Piece.
     //ToString for Piece.
     public String toString() {
         return "Piece{" +
-                "PieceName='" + PieceName + '\'' +
+                "PieceName='" + pName.toString() + '\'' +
                 ", PieceColor=" + PieceColor + '\'' +
                 ", Place=" + PiecePlace +
                 '}';

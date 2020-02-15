@@ -5,11 +5,11 @@ public class Chess {  //Class for the chess.
     //List with all the positions of the chessboard used.
     public static LinkedList ChessboardPlacesUsed = new LinkedList();
 
+    public static Piece[] chessboard = new Piece[6]; //Two-dimensional array for represent the chessboard.
+
+    public static LinkedList ChessboardPlaces = new LinkedList();  //List with all the positions of the chessboard.
+
     public static void main(String[] args) throws Exceptions {  //Main class.
-
-        Piece[] chessboard = new Piece[6]; //Two-dimensional array for represent the chessboard.
-
-        LinkedList ChessboardPlaces = new LinkedList();  //List with all the positions of the chessboard.
 
         //Filling the ChessboardPlaces List.
         ChessboardPlaces.add("A1");
@@ -78,17 +78,17 @@ public class Chess {  //Class for the chess.
 
         //Creating five pieces and placing it randomly according to the chess rules.
         //Adding the element to chessboard array to control it status at each time.
-        Knight KnightBlack1 = new Knight("KnightBlack1", Color.Black, getPlace(ChessboardPlaces));
+        Knight KnightBlack1 = new Knight(PieceName.KnightBlack1, Color.Black, getPlace(ChessboardPlaces));
         chessboard[0] = KnightBlack1;
-        Knight KnightBlack2 = new Knight("KnightBlack2", Color.Black, getPlace(ChessboardPlaces));
+        Knight KnightBlack2 = new Knight(PieceName.KnightBlack2, Color.Black, getPlace(ChessboardPlaces));
         chessboard[1] = KnightBlack2;
-        Rook RookWhite1 = new Rook("RookWhite1", Color.White, getPlace(ChessboardPlaces));
+        Rook RookWhite1 = new Rook(PieceName.RookWhite1, Color.White, getPlace(ChessboardPlaces));
         chessboard[2] = RookWhite1;
-        Rook RookWhite2 = new Rook("RookWhite2", Color.White, getPlace(ChessboardPlaces));
+        Rook RookWhite2 = new Rook(PieceName.RookWhite2, Color.White, getPlace(ChessboardPlaces));
         chessboard[3] = RookWhite2;
-        Queen QueenBlack1 = new Queen("QueenBlack1", Color.Black, getPlace(ChessboardPlaces));
+        Queen QueenBlack1 = new Queen(PieceName.QueenBlack, Color.Black, getPlace(ChessboardPlaces));
         chessboard[4] = QueenBlack1;
-        Queen QueenWhite1 = new Queen("QueenWhite1", Color.White, getPlace(ChessboardPlaces));
+        Queen QueenWhite1 = new Queen(PieceName.QueenWhite, Color.White, getPlace(ChessboardPlaces));
         chessboard[5] = QueenWhite1;
 
         //Print information about the Pieces created.
@@ -137,6 +137,12 @@ public class Chess {  //Class for the chess.
         System.out.println(KnightBlack1.getName() +", "+ KnightBlack1.getPiecePlace());
         System.out.println();
 
+        //Create some random pieces.
+        System.out.println("CREATE SOME RANDOM PIECES: ");
+        System.out.println("New Piece: ");
+        randomPiece();
+
+
     }  //End of the main class.
 
     private static String getPlace(LinkedList avaliables) {  //Method to create a random place according to the chess rules.
@@ -157,5 +163,12 @@ public class Chess {  //Class for the chess.
         for (Piece p: actualstatus) {
             System.out.println(p.getName() + ", " + p.getPiecePlace());
         }
+    }
+
+    private static void randomPiece() {  //Method to create random pieces.
+        PieceName NewpName = PieceName.randomPieceName();
+        Piece  newPiece = new Piece(NewpName, Color.randomColor(), getPlace(ChessboardPlaces));
+        chessboard[5] = newPiece;
+        System.out.println(newPiece.toString());
     }
 }
