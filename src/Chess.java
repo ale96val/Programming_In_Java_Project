@@ -1,15 +1,18 @@
-import java.util.LinkedList;
+import java.util.LinkedList;  //Import for list.
 
 public class Chess {  //Class for the chess.
 
     //List with all the positions of the chessboard used.
     public static LinkedList ChessboardPlacesUsed = new LinkedList();
 
-    public static Piece[] chessboard = new Piece[6]; //Two-dimensional array for represent the chessboard.
+    //Two-dimensional array for represent the chessboard.
+    public static Piece[] chessboard = new Piece[32];
 
-    public static LinkedList ChessboardPlaces = new LinkedList();  //List with all the positions of the chessboard.
+    //List with all the positions of the chessboard.
+    public static LinkedList ChessboardPlaces = new LinkedList();
 
-    public static void main(String[] args) throws Exceptions {  //Main class.
+    //Main class.
+    public static void main(String[] args) throws Exceptions {
 
         //Filling the ChessboardPlaces List.
         ChessboardPlaces.add("A1");
@@ -141,34 +144,77 @@ public class Chess {  //Class for the chess.
         System.out.println("CREATE SOME RANDOM PIECES: ");
         System.out.println("New Piece: ");
         randomPiece();
+        System.out.println("New Piece: ");
+        randomPiece();
+        System.out.println("New Piece: ");
+        randomPiece();
+        System.out.println("New Piece: ");
+        randomPiece();
+        System.out.println("New chessboard status:");
+        getState(chessboard);
 
 
     }  //End of the main class.
 
-    private static String getPlace(LinkedList avaliables) {  //Method to create a random place according to the chess rules.
+    //Method to create a random place according to the chess rules.
+    private static String getPlace(LinkedList avaliables) {
+
             Integer i = (int) (Math.random() * 63);  //Random number to choose a place.
+
             String chosen = avaliables.get(i).toString();  //Choose the place from the list.
 
             while (ChessboardPlacesUsed.contains(chosen)) {  //Check that the place has not been used before or choose other.
                 i = (int) (Math.random() * 64);
                 chosen = avaliables.get(i).toString();
             }
+
             ChessboardPlacesUsed.add(chosen);  //Add the place to the list of places used.
 
         return chosen;  //Return the place.
+
     }
 
-    private static void getState(Piece[] actualstatus){  //Method to show the actual state of the chessboard.
+    //Method to show the actual state of the chessboard.
+    private static void getState(Piece[] actualstatus){
+
         System.out.println("The pieces are situated in the next places in this moment: ");
+
         for (Piece p: actualstatus) {
-            System.out.println(p.getName() + ", " + p.getPiecePlace());
+            if (p != null) {
+                System.out.println(p.getName() + ", " + p.getPiecePlace());
+            }
         }
     }
 
-    private static void randomPiece() {  //Method to create random pieces.
-        PieceName NewpName = PieceName.randomPieceName();
-        Piece  newPiece = new Piece(NewpName, Color.randomColor(), getPlace(ChessboardPlaces));
-        chessboard[5] = newPiece;
+    //Method to create random pieces.
+    private static void randomPiece() throws Exceptions {
+
+        PieceName NewpName = PieceName.randomPieceName();  //Select a random name.
+
+        for (Piece p: chessboard) {  //If the name selected have been already used select other.
+            if (p != null) {
+                if(NewpName.toString() == p.getPieceName()){
+                    NewpName = PieceName.randomPieceName();
+                }
+            }
+        }
+
+        Piece  newPiece = new Piece(NewpName, Color.randomColor(), getPlace(ChessboardPlaces));  //Create piece with the information obtained.
+
+        int places = 0; //Count the actual pieces.
+
+        for (Piece p: chessboard) {  //Check if the maximun of pieces have been reached.
+            if (p != null) {
+                places = places + 1;
+            }
+            }
+
+        if(places < 32) {
+            chessboard[places + 1] =newPiece;
+        }else{
+            throw new Exceptions("Maximum of pieces reached");
+        }
+
         System.out.println(newPiece.toString());
     }
 }

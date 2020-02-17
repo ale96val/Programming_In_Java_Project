@@ -64,11 +64,17 @@ public class Piece {  //Abstract class Piece.
         }
 
         if(pname.contains("ight")){  //Chose the letter of the piece.
-            name = "K";
+            name = "N";
         }else if(pname.contains("ook")){
             name = "R";
         }else if(pname.contains("een")){
             name = "Q";
+        }else if(pname.contains("shop")){
+            name = "B";
+        }else if(pname.contains("Pawn")){
+            name = "P";
+        }else if(pname.contains("ing")){
+            name = "K";
         }
 
         //Create the code:
