@@ -1,4 +1,5 @@
 import java.util.LinkedList;  //Import for list.
+import java.util.Scanner;
 
 public class Chess {  //Class for the chess.
 
@@ -152,8 +153,29 @@ public class Chess {  //Class for the chess.
         randomPiece();
         System.out.println("New chessboard status:");
         getState(chessboard);
+        System.out.println();
 
+        //The user selects next option.
+        System.out.println("SELECT NEXT OPTION: ");
+        System.out.println("FOR CURRENT STATUS WRITE: st");
+        System.out.println("FOR RANDOM PIECE WRITE: rd");
+        String option;
+        Scanner keyboard = new Scanner(System.in);
+        option = keyboard.nextLine();
+        switch (option) {
+            case "st":
+                getState(chessboard);
+                break;
+            case "rd":
+                randomPiece();
+                break;
 
+            default:
+                System.out.println("Option not allowed.");
+        }
+        System.out.println();
+
+        System.out.println("TEST COMPLETED.");
     }  //End of the main class.
 
     //Method to create a random place according to the chess rules.
