@@ -34,7 +34,7 @@ The source files are:
       
       -Piece. This is the class for all the pieces. Rook, Queen, and Knight extends this class.
       
-When the main class is executed, all funtions are methods are tested and the information is printed on the console. The functions are methods availables are:
+When the main class is executed, all funtions are methods are tested and the information is printed on the console. The user also have the option to choose between some functions or methods. The functions are methods availables are:
 
       -Default getters and setters of the classes.
       
