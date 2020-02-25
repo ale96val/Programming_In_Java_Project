@@ -1,3 +1,5 @@
+import com.sun.xml.internal.ws.addressing.WsaActionUtil;
+
 import java.util.LinkedList;  //Import for list.
 import java.util.Scanner;
 
@@ -7,7 +9,8 @@ public class Chess {  //Class for the chess.
     public static LinkedList ChessboardPlacesUsed = new LinkedList();
 
     //Two-dimensional array for represent the chessboard.
-    public static Piece[] chessboard = new Piece[32];
+    public static Piece[][] chessboard = new Piece[8][8];
+
 
     //List with all the positions of the chessboard.
     public static LinkedList ChessboardPlaces = new LinkedList();
@@ -16,84 +19,129 @@ public class Chess {  //Class for the chess.
     public static void main(String[] args) throws Exceptions {
 
         //Filling the ChessboardPlaces List.
-        ChessboardPlaces.add("A1");
-        ChessboardPlaces.add("A2");
-        ChessboardPlaces.add("A3");
-        ChessboardPlaces.add("A4");
-        ChessboardPlaces.add("A5");
-        ChessboardPlaces.add("A6");
-        ChessboardPlaces.add("A7");
-        ChessboardPlaces.add("A8");
-        ChessboardPlaces.add("B1");
-        ChessboardPlaces.add("B2");
-        ChessboardPlaces.add("B3");
-        ChessboardPlaces.add("B4");
-        ChessboardPlaces.add("B5");
-        ChessboardPlaces.add("B6");
-        ChessboardPlaces.add("B7");
-        ChessboardPlaces.add("C1");
-        ChessboardPlaces.add("C2");
-        ChessboardPlaces.add("C3");
-        ChessboardPlaces.add("C4");
-        ChessboardPlaces.add("C5");
-        ChessboardPlaces.add("C6");
-        ChessboardPlaces.add("C7");
-        ChessboardPlaces.add("C8");
-        ChessboardPlaces.add("D1");
-        ChessboardPlaces.add("D2");
-        ChessboardPlaces.add("D3");
-        ChessboardPlaces.add("D4");
-        ChessboardPlaces.add("D5");
-        ChessboardPlaces.add("D6");
-        ChessboardPlaces.add("D7");
-        ChessboardPlaces.add("D8");
-        ChessboardPlaces.add("E1");
-        ChessboardPlaces.add("E2");
-        ChessboardPlaces.add("E3");
-        ChessboardPlaces.add("E4");
-        ChessboardPlaces.add("E5");
-        ChessboardPlaces.add("E6");
-        ChessboardPlaces.add("E7");
-        ChessboardPlaces.add("E8");
-        ChessboardPlaces.add("F1");
-        ChessboardPlaces.add("F2");
-        ChessboardPlaces.add("F3");
-        ChessboardPlaces.add("F4");
-        ChessboardPlaces.add("F5");
-        ChessboardPlaces.add("F6");
-        ChessboardPlaces.add("F7");
-        ChessboardPlaces.add("F8");
-        ChessboardPlaces.add("G1");
-        ChessboardPlaces.add("G2");
-        ChessboardPlaces.add("G3");
-        ChessboardPlaces.add("G4");
-        ChessboardPlaces.add("G5");
-        ChessboardPlaces.add("G6");
-        ChessboardPlaces.add("G7");
-        ChessboardPlaces.add("G8");
-        ChessboardPlaces.add("H1");
-        ChessboardPlaces.add("H2");
-        ChessboardPlaces.add("H3");
-        ChessboardPlaces.add("H4");
-        ChessboardPlaces.add("H5");
-        ChessboardPlaces.add("H6");
-        ChessboardPlaces.add("H7");
-        ChessboardPlaces.add("H8");
+        ChessboardPlaces.add("A,1");
+        ChessboardPlaces.add("A,2");
+        ChessboardPlaces.add("A,3");
+        ChessboardPlaces.add("A,4");
+        ChessboardPlaces.add("A,5");
+        ChessboardPlaces.add("A,6");
+        ChessboardPlaces.add("A,7");
+        ChessboardPlaces.add("A,8");
+        ChessboardPlaces.add("B,1");
+        ChessboardPlaces.add("B,2");
+        ChessboardPlaces.add("B,3");
+        ChessboardPlaces.add("B,4");
+        ChessboardPlaces.add("B,5");
+        ChessboardPlaces.add("B,6");
+        ChessboardPlaces.add("B,7");
+        ChessboardPlaces.add("C,1");
+        ChessboardPlaces.add("C,2");
+        ChessboardPlaces.add("C,3");
+        ChessboardPlaces.add("C,4");
+        ChessboardPlaces.add("C,5");
+        ChessboardPlaces.add("C,6");
+        ChessboardPlaces.add("C,7");
+        ChessboardPlaces.add("C,8");
+        ChessboardPlaces.add("D,1");
+        ChessboardPlaces.add("D,2");
+        ChessboardPlaces.add("D,3");
+        ChessboardPlaces.add("D,4");
+        ChessboardPlaces.add("D,5");
+        ChessboardPlaces.add("D,6");
+        ChessboardPlaces.add("D,7");
+        ChessboardPlaces.add("D,8");
+        ChessboardPlaces.add("E,1");
+        ChessboardPlaces.add("E,2");
+        ChessboardPlaces.add("E,3");
+        ChessboardPlaces.add("E,4");
+        ChessboardPlaces.add("E,5");
+        ChessboardPlaces.add("E,6");
+        ChessboardPlaces.add("E,7");
+        ChessboardPlaces.add("E,8");
+        ChessboardPlaces.add("F,1");
+        ChessboardPlaces.add("F,2");
+        ChessboardPlaces.add("F,3");
+        ChessboardPlaces.add("F,4");
+        ChessboardPlaces.add("F,5");
+        ChessboardPlaces.add("F,6");
+        ChessboardPlaces.add("F,7");
+        ChessboardPlaces.add("F,8");
+        ChessboardPlaces.add("G,1");
+        ChessboardPlaces.add("G,2");
+        ChessboardPlaces.add("G,3");
+        ChessboardPlaces.add("G,4");
+        ChessboardPlaces.add("G,5");
+        ChessboardPlaces.add("G,6");
+        ChessboardPlaces.add("G,7");
+        ChessboardPlaces.add("G,8");
+        ChessboardPlaces.add("H,1");
+        ChessboardPlaces.add("H,2");
+        ChessboardPlaces.add("H,3");
+        ChessboardPlaces.add("H,4");
+        ChessboardPlaces.add("H,5");
+        ChessboardPlaces.add("H,6");
+        ChessboardPlaces.add("H,7");
+        ChessboardPlaces.add("H,8");
 
         //Creating five pieces and placing it randomly according to the chess rules.
         //Adding the element to chessboard array to control it status at each time.
+        for (Piece[] arr:
+                chessboard) {
+            for (Piece p:
+                    arr) {
+                p = null;
+            }
+        }
+
+        String position = "";
+
         Knight KnightBlack1 = new Knight(PieceName.KnightBlack1, Color.Black, getPlace(ChessboardPlaces));
-        chessboard[0] = KnightBlack1;
+        position = KnightBlack1.getPiecePlace();
+        ChessboardPlacesUsed.add(position);
+        String[] parts = position.split(",");
+        String part1 = parts[0];
+        String part2 = parts[1];
+        chessboard[getNumericalValue(part1)][Integer.parseInt(part2) - 1] = KnightBlack1;
+
         Knight KnightBlack2 = new Knight(PieceName.KnightBlack2, Color.Black, getPlace(ChessboardPlaces));
-        chessboard[1] = KnightBlack2;
+        position = KnightBlack2.getPiecePlace();
+        ChessboardPlacesUsed.add(position);
+        parts = position.split(",");
+        part1 = parts[0];
+        part2 = parts[1];
+        chessboard[getNumericalValue(part1)][Integer.parseInt(part2) - 1] = KnightBlack2;
+
         Rook RookWhite1 = new Rook(PieceName.RookWhite1, Color.White, getPlace(ChessboardPlaces));
-        chessboard[2] = RookWhite1;
+        position = RookWhite1.getPiecePlace();
+        ChessboardPlacesUsed.add(position);
+        parts = position.split(",");
+        part1 = parts[0];
+        part2 = parts[1];
+        chessboard[getNumericalValue(part1)][Integer.parseInt(part2) - 1] = RookWhite1;
+
         Rook RookWhite2 = new Rook(PieceName.RookWhite2, Color.White, getPlace(ChessboardPlaces));
-        chessboard[3] = RookWhite2;
+        position = RookWhite2.getPiecePlace();
+        ChessboardPlacesUsed.add(position);
+        parts = position.split(",");
+        part1 = parts[0];
+        part2 = parts[1];
+        chessboard[getNumericalValue(part1)][Integer.parseInt(part2) - 1] = RookWhite2;
+
         Queen QueenBlack1 = new Queen(PieceName.QueenBlack, Color.Black, getPlace(ChessboardPlaces));
-        chessboard[4] = QueenBlack1;
+        position = QueenBlack1.getPiecePlace();
+        ChessboardPlacesUsed.add(position);
+        parts = position.split(",");
+        part1 = parts[0];
+        part2 = parts[1];
+        chessboard[getNumericalValue(part1)][Integer.parseInt(part2) - 1] = QueenBlack1;
+
         Queen QueenWhite1 = new Queen(PieceName.QueenWhite, Color.White, getPlace(ChessboardPlaces));
-        chessboard[5] = QueenWhite1;
+        position = QueenWhite1.getPiecePlace();
+        ChessboardPlacesUsed.add(position);
+        parts = position.split(",");
+        part1 = parts[0];
+        part2 = parts[1];
+        chessboard[getNumericalValue(part1)][Integer.parseInt(part2) - 1] = QueenWhite1;
 
         //Print information about the Pieces created.
         System.out.println("INFORMATION ABOUT THE PIECES CREATED: ");
@@ -124,7 +172,7 @@ public class Chess {  //Class for the chess.
         System.out.println("MOVE SOME PIECES WITH CORRECT MOVEMENTS: ");
         System.out.println("Star position: ");
         System.out.println(KnightBlack1.getName() +", "+ KnightBlack1.getPiecePlace());
-        KnightBlack1.moveTo("A2");
+        KnightBlack1.moveTo("A,2");
         System.out.println("New position: ");
         System.out.println(KnightBlack1.getName() +", "+ KnightBlack1.getPiecePlace());
         System.out.println();
@@ -174,37 +222,45 @@ public class Chess {  //Class for the chess.
                 System.out.println("Option not allowed.");
         }
         System.out.println();
-
         System.out.println("TEST COMPLETED.");
     }  //End of the main class.
 
     //Method to create a random place according to the chess rules.
     private static String getPlace(LinkedList avaliables) {
 
+            String chosen = "";
+
             Integer i = (int) (Math.random() * 63);  //Random number to choose a place.
 
-            String chosen = avaliables.get(i).toString();  //Choose the place from the list.
+            chosen = avaliables.get(i).toString();  //Choose the place from the list.
 
             while (ChessboardPlacesUsed.contains(chosen)) {  //Check that the place has not been used before or choose other.
-                i = (int) (Math.random() * 64);
+                i = (int) (Math.random() * 63);
                 chosen = avaliables.get(i).toString();
             }
 
             ChessboardPlacesUsed.add(chosen);  //Add the place to the list of places used.
-
         return chosen;  //Return the place.
 
     }
 
     //Method to show the actual state of the chessboard.
-    private static void getState(Piece[] actualstatus){
-
+    private static void getState(Piece[][] actualstatusr) {
         System.out.println("The pieces are situated in the next places in this moment: ");
-
-        for (Piece p: actualstatus) {
-            if (p != null) {
-                System.out.println(p.getName() + ", " + p.getPiecePlace());
+        System.out.println("// A  B  C  D  E  F  G  H");
+        for(int i=0; i<=7; i++){
+            System.out.print(i + 1);
+            System.out.print(" ");
+            for (int n=0; n<=7; n++){
+                if(chessboard[n][i] != null){
+                    System.out.print(chessboard[n][i].getName());
+                    System.out.print(" ");
+                }else if(chessboard[n][i] == null){
+                    System.out.print("[]");
+                    System.out.print(" ");
+                }
             }
+            System.out.println();
         }
     }
 
@@ -213,30 +269,73 @@ public class Chess {  //Class for the chess.
 
         PieceName NewpName = PieceName.randomPieceName();  //Select a random name.
 
-        for (Piece p: chessboard) {  //If the name selected have been already used select other.
-            if (p != null) {
-                if(NewpName.toString() == p.getPieceName()){
-                    NewpName = PieceName.randomPieceName();
+        for (Piece[] letter: chessboard) {//If the name selected have been already used select other.
+            for (Piece nbr : letter) {
+                if (nbr != null) {
+                    if (NewpName.toString() == nbr.getPieceName()) {
+                        NewpName = PieceName.randomPieceName();
+                    }
                 }
             }
         }
 
         Piece  newPiece = new Piece(NewpName, Color.randomColor(), getPlace(ChessboardPlaces));  //Create piece with the information obtained.
 
-        int places = 0; //Count the actual pieces.
+        int nbr_n = 0;  //Count the actual number of column in the chessboard.
+        int letter_n = 0; //Count the actual letter of row in the chessboard.
 
-        for (Piece p: chessboard) {  //Check if the maximun of pieces have been reached.
-            if (p != null) {
-                places = places + 1;
+        for (Piece[] letter: chessboard) {  //Check if the maximum of pieces have been reached.
+            if(letter != null) {
+                letter_n = letter_n + 1;
+                for (Piece nbr : letter) {
+                    if (nbr != null) {
+                        nbr_n = nbr_n + 1;
+                    }
+                }
             }
-            }
+        }
 
-        if(places < 32) {
-            chessboard[places + 1] =newPiece;
-        }else{
+        if(nbr_n >7 || letter_n >7) {
+            String rposition = getPlace(ChessboardPlaces);
+            String[] parts = rposition.split(",");
+            String part1 = parts[0];
+            String part2 = parts[1];
+            chessboard[getNumericalValue(part1)][Integer.parseInt(part2) - 1] =newPiece;
+        }else {
             throw new Exceptions("Maximum of pieces reached");
         }
 
         System.out.println(newPiece.toString());
+    }
+
+    private static int getNumericalValue(String chain_to_int) {
+        int nb = 0;
+        switch (chain_to_int) {
+            case "A":
+                nb = 0;
+                break;
+            case "B":
+                nb = 1;
+                break;
+            case "C":
+                nb = 2;
+                break;
+            case "D":
+                nb = 3;
+                break;
+            case "E":
+                nb = 4;
+                break;
+            case "F":
+                nb = 5;
+                break;
+            case "G":
+                nb = 6;
+                break;
+            case "H":
+                nb = 7;
+                break;
+        }
+        return nb;
     }
 }
