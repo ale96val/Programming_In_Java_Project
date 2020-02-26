@@ -1,7 +1,5 @@
-import com.sun.xml.internal.ws.addressing.WsaActionUtil;
-
 import java.util.LinkedList;  //Import for list.
-import java.util.Scanner;
+import java.util.Scanner;  //Import for scanner.
 
 public class Chess {  //Class for the chess.
 
@@ -85,23 +83,15 @@ public class Chess {  //Class for the chess.
 
         //Creating five pieces and placing it randomly according to the chess rules.
         //Adding the element to chessboard array to control it status at each time.
-        for (Piece[] arr:
-                chessboard) {
-            for (Piece p:
-                    arr) {
-                p = null;
-            }
-        }
-
-        String position = "";
+        String position = "";  //String to convert position from string to integer.
 
         Knight KnightBlack1 = new Knight(PieceName.KnightBlack1, Color.Black, getPlace(ChessboardPlaces));
-        position = KnightBlack1.getPiecePlace();
-        ChessboardPlacesUsed.add(position);
-        String[] parts = position.split(",");
+        position = KnightBlack1.getPiecePlace();  //Get the new position.
+        ChessboardPlacesUsed.add(position);  //Add to the used position list.
+        String[] parts = position.split(",");  //Convert the position to integer for add it to the chessboard.
         String part1 = parts[0];
         String part2 = parts[1];
-        chessboard[getNumericalValue(part1)][Integer.parseInt(part2) - 1] = KnightBlack1;
+        chessboard[getNumericalValue(part1)][Integer.parseInt(part2) - 1] = KnightBlack1; //Add the position to the chessboard.
 
         Knight KnightBlack2 = new Knight(PieceName.KnightBlack2, Color.Black, getPlace(ChessboardPlaces));
         position = KnightBlack2.getPiecePlace();
@@ -172,7 +162,7 @@ public class Chess {  //Class for the chess.
         System.out.println("MOVE SOME PIECES WITH CORRECT MOVEMENTS: ");
         System.out.println("Star position: ");
         System.out.println(KnightBlack1.getName() +", "+ KnightBlack1.getPiecePlace());
-        KnightBlack1.moveTo("A,2");
+        KnightBlack1.moveTo(getPlace(ChessboardPlaces));
         System.out.println("New position: ");
         System.out.println(KnightBlack1.getName() +", "+ KnightBlack1.getPiecePlace());
         System.out.println();
@@ -216,50 +206,56 @@ public class Chess {  //Class for the chess.
                 break;
             case "rd":
                 randomPiece();
+                getState(chessboard);
                 break;
 
             default:
                 System.out.println("Option not allowed.");
         }
         System.out.println();
+
         System.out.println("TEST COMPLETED.");
+        
     }  //End of the main class.
 
     //Method to create a random place according to the chess rules.
-    private static String getPlace(LinkedList avaliables) {
+    private static String getPlace(LinkedList availables) throws Exceptions {
 
-            String chosen = "";
-
+            Object chosen = null;
+            String schosen = "";
             Integer i = (int) (Math.random() * 63);  //Random number to choose a place.
 
-            chosen = avaliables.get(i).toString();  //Choose the place from the list.
+            chosen = availables.get(i);  //Choose the place from the list.
+            schosen = chosen.toString();
 
-            while (ChessboardPlacesUsed.contains(chosen)) {  //Check that the place has not been used before or choose other.
-                i = (int) (Math.random() * 63);
-                chosen = avaliables.get(i).toString();
+            for(Object s: ChessboardPlacesUsed) {  //Check that the place has not been used before or choose other.
+                if (s.toString() == schosen) {
+                    schosen = getPlace(availables);
+                }
             }
-
-            ChessboardPlacesUsed.add(chosen);  //Add the place to the list of places used.
-        return chosen;  //Return the place.
+        return schosen;  //Return the place.
 
     }
 
     //Method to show the actual state of the chessboard.
-    private static void getState(Piece[][] actualstatusr) {
+    private static void getState(Piece[][] actualstatus) {
+
         System.out.println("The pieces are situated in the next places in this moment: ");
         System.out.println("// A  B  C  D  E  F  G  H");
-        for(int i=0; i<=7; i++){
+
+        for(int i=0; i<=7; i++){  //Check all position of the chessboard.
             System.out.print(i + 1);
             System.out.print(" ");
             for (int n=0; n<=7; n++){
-                if(chessboard[n][i] != null){
-                    System.out.print(chessboard[n][i].getName());
+                if(actualstatus[n][i] != null){
+                    System.out.print(actualstatus[n][i].getName());  //Print piece name.
                     System.out.print(" ");
-                }else if(chessboard[n][i] == null){
-                    System.out.print("[]");
+                }else if(actualstatus[n][i] == null){
+                    System.out.print("[]");  //Print place not used.
                     System.out.print(" ");
                 }
             }
+
             System.out.println();
         }
     }
@@ -280,13 +276,11 @@ public class Chess {  //Class for the chess.
         }
 
         Piece  newPiece = new Piece(NewpName, Color.randomColor(), getPlace(ChessboardPlaces));  //Create piece with the information obtained.
-
-        int nbr_n = 0;  //Count the actual number of column in the chessboard.
-        int letter_n = 0; //Count the actual letter of row in the chessboard.
+        ChessboardPlacesUsed.add(newPiece.getPiecePlace());  //Add the place to the list of places used.
+        int nbr_n = 0;  //Count the actual number of pieces in the chessboard.
 
         for (Piece[] letter: chessboard) {  //Check if the maximum of pieces have been reached.
             if(letter != null) {
-                letter_n = letter_n + 1;
                 for (Piece nbr : letter) {
                     if (nbr != null) {
                         nbr_n = nbr_n + 1;
@@ -295,8 +289,8 @@ public class Chess {  //Class for the chess.
             }
         }
 
-        if(nbr_n >7 || letter_n >7) {
-            String rposition = getPlace(ChessboardPlaces);
+        if(nbr_n <=32) {  //If the chessboard has places, add one piece to the chessboard.
+            String rposition = newPiece.getPiecePlace();
             String[] parts = rposition.split(",");
             String part1 = parts[0];
             String part2 = parts[1];
@@ -308,8 +302,11 @@ public class Chess {  //Class for the chess.
         System.out.println(newPiece.toString());
     }
 
-    private static int getNumericalValue(String chain_to_int) {
+    //Method to convert the string position in a position of the chessboard.
+    static int getNumericalValue(String chain_to_int) {
+
         int nb = 0;
+
         switch (chain_to_int) {
             case "A":
                 nb = 0;
@@ -336,6 +333,7 @@ public class Chess {  //Class for the chess.
                 nb = 7;
                 break;
         }
+
         return nb;
     }
 }

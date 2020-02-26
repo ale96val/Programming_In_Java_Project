@@ -89,8 +89,16 @@ public class Piece {  //Abstract class Piece.
             throw new Exceptions("Place already in use.");
         }else{
             Chess.ChessboardPlacesUsed.remove(PiecePlace);
-            Chess.ChessboardPlacesUsed.add(position);
+            String[] parts = PiecePlace.split(",");
+            String part1 = parts[0];
+            String part2 = parts[1];
+            Chess.chessboard[Chess.getNumericalValue(part1)][Integer.parseInt(part2) - 1] = null;
             PiecePlace = position;
+            Chess.ChessboardPlacesUsed.add(position);
+            parts = position.split(",");
+            part1 = parts[0];
+            part2 = parts[1];
+            Chess.chessboard[Chess.getNumericalValue(part1)][Integer.parseInt(part2) - 1] = Piece.this;
         }
 
 
